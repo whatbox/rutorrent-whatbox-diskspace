@@ -1,2 +1,0 @@
-<?php
-$theSettings->registerPlugin("diskspace");
