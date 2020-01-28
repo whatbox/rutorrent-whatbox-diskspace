@@ -10,9 +10,9 @@ plugin.setValue = function(total, used) {
 	$("#meter-disk-value").width(Math.min(100,percent) + "%" ).css("background-color", color);
 	if (!plugin.altView) {
 		$("#meter-disk-text").text((percent).toFixed(2)+'%');
-		$("#meter-disk-td").attr("title", theConverter.bytes(used)+" / "+theConverter.bytes(total));
+		$("#meter-disk-td").attr("title", theConverter.bytes(total - used) + " free");
 	} else {
-		$("#meter-disk-text").text(theConverter.bytes(used)+" / "+theConverter.bytes(total));
+		$("#meter-disk-text").text(theConverter.bytes(total - used) + " free");
 		$("#meter-disk-td").attr("title", (percent).toFixed(2)+'%');
 	}
 };
