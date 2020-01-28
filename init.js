@@ -48,19 +48,12 @@ plugin.init = function() {
 
 		plugin.addPaneToStatusbar( "meter-disk-td",  meter);
 
-		var defaultLeft = $('#meter-disk-text').css('left');
 		$('#meter-disk-td').dblclick(function(){
 			plugin.altView = !plugin.altView;
 
 			var tmp = $('#meter-disk-text').text();
 			$('#meter-disk-text').text($('#meter-disk-td').attr('title'));
 			$('#meter-disk-td').attr('title',tmp);
-
-			if (plugin.altView) {
-				$('#meter-disk-text').css('left','5%');
-			} else {
-				$('#meter-disk-text').css('left', defaultLeft);
-			}
 		});
 
 
