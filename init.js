@@ -57,7 +57,7 @@ plugin.init = function() {
 					.html('&nbsp;')
 			);
 
-		plugin.addPaneToStatusbar('meter-disk-td',  meter);
+		plugin.addPaneToStatusbar('meter-disk-td',  meter, 0, true);
 
 		const DISK_TD = document.querySelector('#meter-disk-td');
 		const DISK_TEXT = document.querySelector('#meter-disk-text');
