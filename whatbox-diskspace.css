@@ -1,20 +1,39 @@
-#meter-disk-text {
-    position: relative;
-    text-align: center;
-    float: left;
-    width: 100px;
-    overflow: visible;
+#meter-disk-pane .icon {
+    background: url(./images/disk.png) center no-repeat;
+}
 
-    font-size: 11px;
-    font-family: Tahoma, Arial, Helvetica, sans-serif;
-    z-index: 1;
-}
 #meter-disk-holder {
-    width: 100px;
+    border: inset 1px #BBBBBB;
+    position: relative;
     height: 18px;
-    line-height: 18px;
-    margin-left: 25px;
 }
-#meter-disk-td {
-    background: url(./images/disk.png) 5px no-repeat;
+
+#meter-disk-value {
+    height: 100%;
+}
+
+#meter-disk-text {
+    position: absolute;
+    top: 0;
+    text-align: center;
+    width: 100%;
+    height: 100%;
+}
+
+/* Custom break point settings for responsiveness */
+
+/* X-Small devices (portrait phones, less than 576px) */
+/* No media query for `xs` since this is the default in Bootstrap */
+/* Custom rules for x-small devices */
+#meter-disk-holder {
+    width: 50px;
+}
+
+/* Large devices (desktops, 992px and up) */
+@media (min-width: 992px) {
+
+    /* Custom rules for large devices */
+    #meter-disk-holder {
+        width: 100px;
+    }
 }

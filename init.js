@@ -15,59 +15,50 @@ plugin.setValue = function(total, used) {
 		color = '#99D699';
 	}
 
-	const DISK_TD = document.querySelector('#meter-disk-td');
-	const DISK_TEXT = document.querySelector('#meter-disk-text');
-
 	$('#meter-disk-value').width(Math.min(100, percent) + '%').css('background-color', color);
 	if (!plugin.altView) {
 		if (used < total) {
 			// Under limit
-			DISK_TEXT.textContent = theConverter.bytes(total - used) + ' free';
+			$("#meter-disk-text").text(theConverter.bytes(total - used) + ' free');
 		} else {
 			// Over limit
-			DISK_TEXT.textContent = theConverter.bytes(used - total) + ' over';
+			$("#meter-disk-text").text(theConverter.bytes(used - total) + ' over');
 		}
-		DISK_TD.title = percent.toFixed(2) + '%';
+		$("#meter-disk-pane").attr("title", percent.toFixed(2) + '%');
 	} else {
-		DISK_TEXT.textContent = percent.toFixed(2)+'%';
+		$("#meter-disk-text").text(percent.toFixed(2)+'%');
 		if (used < total) {
 			// Under limit
-			DISK_TD.title = theConverter.bytes(total - used) + ' free';
+			$("#meter-disk-pane").attr("title", theConverter.bytes(total - used) + ' free');
 		} else {
 			// Over limit
-			DISK_TD.title = theConverter.bytes(total - used) + ' over';
+			$("#meter-disk-pane").attr("title", theConverter.bytes(used - total) + ' over');
 		}
-
 	}
 };
 
 plugin.init = function() {
 	plugin.altView = false;
-
 	if (getCSSRule('#meter-disk-holder')) {
-		var meter = $('<div>').attr('id','meter-disk-holder')
-			.append(
-				$('<span></span>')
-					.attr('id','meter-disk-text')
-					.css({overflow: 'visible'})
-			)
-			.append(
-				$('<div>')
-					.attr('id','meter-disk-value')
-					.html('&nbsp;')
-			);
+		plugin.addPaneToStatusbar(
+			"meter-disk-pane",
+			$("<div>").append(
+				$("<div>").addClass("icon"),
+				$("<div>").attr({id: "meter-disk-holder"}).append(
+					$("<div>").attr({id: "meter-disk-value"}).width(0),
+					$("<div>").attr({id: "meter-disk-text"}),
+				),
+			),
+			1, true,
+		);
 
-		plugin.addPaneToStatusbar('meter-disk-td',  meter, 0, true);
+		// $('#meter-disk-holder').on('dblclick', function () {
+		// 	plugin.altView = !plugin.altView;
 
-		const DISK_TD = document.querySelector('#meter-disk-td');
-		const DISK_TEXT = document.querySelector('#meter-disk-text');
-		DISK_TD.addEventListener('dblclick', function(){
-			plugin.altView = !plugin.altView;
-
-			let tmp = DISK_TEXT.textContent;
-			DISK_TEXT.textContent = DISK_TD.title;
-			DISK_TD.title = tmp;
-		});
+		// 	let tmp = $("#meter-disk-text").text();
+		// 	$("#meter-disk-text").text = $("#meter-disk-pane").attr('title');
+		// 	$("#meter-disk-pane").attr('title', tmp);
+		// });
 
 		plugin.check = function() {
 			if (document.hidden || !navigator.onLine) {
